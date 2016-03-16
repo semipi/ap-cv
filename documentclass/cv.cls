@@ -128,6 +128,7 @@
   \color{white}%
 }
 
+% header
 \newcommand{\header}[3]{%
   \begin{tikzpicture}[remember picture,overlay]
     \node [rectangle, anchor=north, minimum width=\paperwidth, minimum height=3cm] (box) at (current page.north){};
@@ -144,22 +145,40 @@
   \vspace{-2\parskip}
 }
 
-% list
+
+
+% ------------------------------------------------------------------------------
+% entrylist 
+\RequirePackage{tabularx}
+\RequirePackage{array}
+
+% right aligned table column
+\newcolumntype{R}{>{\raggedleft\arraybackslash}p{3.5cm}}
+
 \setlength{\tabcolsep}{0pt}
 \newenvironment{entrylist}{%
-  \begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} p{9cm}r}
+  % EXPL: command form `tabularx` is necessary to avoid `runaway` bug ... 
+  % TODO: hard-coded length ... somehow `linewidth` is 0 in this scope?
+  \tabularx{14cm}{p{2.5cm} X R}
 }{%
-  \end{tabular*}
+  \endtabularx
 }
-\newcommand{\entry}[4]{
-\parbox[t]{2.5cm}{#1}&\textbf{#2}&\parbox[t]{.5cm}\hfill{\color{lightgray}#3}\\&{#4}&\\
-}
-%
+\newcommand{\entry}[3]{{#1}&{#2}&{#3}\\}
 
+% inject into the colums of the entrytable
+\newcommand{\injectI}[1]{#1&&\\}
+\newcommand{\injectII}[1]{&#1&\\}
+\newcommand{\injectIII}[1]{&&#1\\}
 
-%  #1&\parbox[t]{11.8cm}{%
-%    \textbf{#2}%
-%    \hfill%
-%    {#3}\\%
-%    &#4\vspace{\parsep}%
-% }\\
+% macros for job functions, technologies and specifications
+\newcommand{\tech}[1]{\injectII{\textcolor{lightgray}{#1}}}
+\newcommand{\func}{\injectII}
+\newcommand{\site}{\injectII}
+\newcommand{\spec}{\injectII}
+
+% ------------------------------------------------------------------------------
+% Misc
+
+\RequirePackage{xspace}
+
+\newcommand{\heart}{\textcolor{lightgray}{$\varheart$}\xspace} 
