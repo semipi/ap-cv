@@ -26,40 +26,17 @@
 \definecolor{red}{HTML}{FB4485}
 \definecolor{blue}{HTML}{6CE0F1}
 
-\ifdefined\@cv@print
-  \colorlet{green}{gray}
-  \colorlet{orange}{gray}
-  \colorlet{purple}{gray}
-  \colorlet{brown}{gray}
-  \colorlet{red}{gray}
-  \colorlet{blue}{gray}
-  \colorlet{fillheader}{white}
-  \colorlet{header}{gray}
-\else
-  \colorlet{fillheader}{gray}
-  \colorlet{header}{white}
-\fi
+\RequirePackage{geometry}
+\geometry{
+        a4paper,
+        left=60mm,
+        right=20mm,
+        top=40mm,
+        bottom=20mm
+}
+
 \colorlet{textcolor}{gray}
 \colorlet{headercolor}{gray}
-
-% Structure
-\RequirePackage{parskip}
-\newcounter{colorCounter}
-\def\@sectioncolor#1#2#3{%
-  {%
-    \color{%
-      \ifcase\value{colorCounter}%
-        blue\or%
-        red\or%
-        orange\or%
-        green\or%
-        purple\or%
-        brown\else%
-        headercolor\fi%
-    } #1#2#3%
-  }%
-  \stepcounter{colorCounter}%
-}
 
 \renewcommand{\section}[1]{
   \par\vspace{\parskip}
@@ -104,21 +81,6 @@
   \let\section\oldsection
 }
 
-\newenvironment{lside}{%
-  \let\oldsection\section
-  \renewcommand{\section}[1]{
-    \par\vspace{\baselineskip}{\LARGE\bfseries\color{headercolor} ##1}
-  }
-  \begin{textblock}{4}(6.25, 3.93)
-  \begin{flushleft}
-  \obeycr
-}{%
-  \restorecr
-  \end{flushleft}
-  \end{textblock}
-  \let\section\oldsection
-}
-
 % Header
 \RequirePackage{tikz}
 
@@ -148,7 +110,7 @@
 
 
 % ------------------------------------------------------------------------------
-% entrylist 
+% entrylist
 \RequirePackage{tabularx}
 \RequirePackage{array}
 
@@ -157,9 +119,9 @@
 
 \setlength{\tabcolsep}{0pt}
 \newenvironment{entrylist}{%
-  % EXPL: command form `tabularx` is necessary to avoid `runaway` bug ... 
+  % EXPL: command form `tabularx` is necessary to avoid `runaway` bug ...
   % TODO: hard-coded length ... somehow `linewidth` is 0 in this scope?
-  \tabularx{14cm}{p{2.5cm} X R}
+  \tabularx{13cm}{p{2.5cm} X R}
 }{%
   \endtabularx
 }
@@ -181,4 +143,4 @@
 
 \RequirePackage{xspace}
 
-\newcommand{\heart}{\textcolor{lightgray}{$\varheart$}\xspace} 
+\newcommand{\heart}{\textcolor{lightgray}{$\varheart$}\xspace}
