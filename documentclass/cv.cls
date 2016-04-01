@@ -1,3 +1,5 @@
+% Based on Friggeri Resume/CV by Adrien Friggeri (adrien@friggeri.net)
+
 \ProvidesClass{cv}
 \NeedsTeXFormat{LaTeX2e}
 
